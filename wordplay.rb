@@ -8,6 +8,27 @@ class WordPlay
     end
     ranked_sentences.last
   end
+
+  def self.switch_pronouns(text)
+    text.gsub(/\b(I am|You are|I|You|Me|Your|My)\b/i) do |pronoun|
+      case pronoun.downcase
+      when 'i'
+        'you'
+      when 'you'
+      'me'
+      when 'me'
+        'you'
+      when 'i am'
+      'you are'
+      when 'you are'
+        'i am'
+      when 'your'
+        'my'
+      when 'my'
+        'your'
+      end
+    end.sub(/^me\b/i, 'i')
+  end
 end
 
 # top-level documentation
@@ -27,6 +48,12 @@ t = my_string.sentences.find_all do |s|
   s.downcase.words.any? { |word| hot_words.include?(word)}
 end
 
-p t.to_a
+puts WordPlay.switch_pronouns('Your cat is fighting with my cat')
+puts WordPlay.switch_pronouns('You are my robot')
+puts WordPlay.switch_pronouns('My cat is fighting with you')
+puts WordPlay.switch_pronouns('I gave you hope')
+puts WordPlay.switch_pronouns('You gave me hope')
 
-puts WordPlay.best_sentence(my_string.sentences, hot_words)
+while input = gets
+  puts '>> ' + WordPlay.switch_pronouns(input).chomp + '?'
+end
