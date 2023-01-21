@@ -40,19 +40,3 @@ class WordPlay
     ranked_sentences.last
   end
 end
-
-hot_words = %w{test ruby great}
-my_string = 'This is a test. Dull sentence here. Ruby is great. So is cake'
-t = my_string.sentences.find_all do |s|
-  s.downcase.words.any? { |word| hot_words.include?(word)}
-end
-
-puts WordPlay.switch_pronouns('Your cat is fighting with my cat')
-puts WordPlay.switch_pronouns('You are my robot')
-puts WordPlay.switch_pronouns('My cat is fighting with you')
-puts WordPlay.switch_pronouns('I gave you hope')
-puts WordPlay.switch_pronouns('You gave me hope')
-
-while input = gets
-  puts '>> ' + WordPlay.switch_pronouns(input).chomp + '?'
-end
