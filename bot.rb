@@ -28,6 +28,7 @@ class Bot
     prepared_input = preprocess(input).downcase
     sentence = best_sentence(prepared_input)
     responses = possible_responses(sentence)
+    responses[rand(responses.length)]
   end
 
   def possible_responses
@@ -41,7 +42,22 @@ class Bot
       # a match. Remove substitution symbols (*) before checking.
       # Push all responses to the responses array.
       if sentence.match('\b' + pattern.gsub(/\*/, '') + '\b')
-        responses << @data[:responses][pattern]
+        # If the pattern contains substitution placeholders,
+        # perform the substitutions
+        if pattern.include?('*')
+          responses << @data[:responses][pattern].collect do |phrase|
+            # First, erase everything before the placeholder
+            # leaving everything after it
+            matching_section = sentence.sub(/^.*#{pattern}\s+/, '')
+
+            # Then substitute the text after the placeholder, with
+            # the pronouns switched
+            phrase.sub('*', WordPlay.switch_pronouns(matching_section))
+          end
+        else
+          # No placeholders? Just add the phrases to the array
+          responses << @data[:responses][pattern]
+        end
       end
     end
 
