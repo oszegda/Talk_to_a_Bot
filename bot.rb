@@ -24,11 +24,24 @@ class Bot
     random_response :farewell
   end
 
+  def response_to(input)
+    prepared_input = preprocess(input).downcase
+  end
+
   private
 
   def random_response(key)
     random_index = rand(@data[:responses][key].length)
     @data[:responses][key][random_index].gsub(/\[name\]/, @name)
+  end
+
+  def preprocess(input)
+    perform_substitutions input
+  end
+
+  def perform_substitutions(input)
+    @data[:presubs].each { |s| input.gsub!(s[0], s[1]) }
+    input
   end
 end
 
