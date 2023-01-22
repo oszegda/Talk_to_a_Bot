@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class BotServlet - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">WEBrick::HTTPServlet::AbstractServlet
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-do_GET">#do_GET</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-BotServlet">
+  <h1 id="class-BotServlet" class="class">
+    class BotServlet
+  </h1>
+
+  <section class="description">
+    
+<p>Class that responds to HTTP/Web requests and interacts with the bot</p>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-do_GET" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">do_GET</span><span
+            class="method-args">(request, response)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="do_GET-source">
+            <pre><span class="ruby-comment"># File bot_to_web.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">do_GET</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">response</span>)
+  <span class="ruby-comment"># Mark the request as successful and set MIME type to support HTML</span>
+  <span class="ruby-identifier">response</span>.<span class="ruby-identifier">status</span> = <span class="ruby-value">200</span>
+  <span class="ruby-identifier">response</span>.<span class="ruby-identifier">content_type</span> = <span class="ruby-string">&#39;text/html&#39;</span>
+
+  <span class="ruby-comment"># If the user supplies some text, respond to it</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">query</span>[<span class="ruby-string">&#39;line&#39;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">query</span>[<span class="ruby-string">&#39;line&#39;</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">bot_text</span> = <span class="ruby-identifier">$bot</span>.<span class="ruby-identifier">response_to</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">query</span>[<span class="ruby-string">&#39;line&#39;</span>].<span class="ruby-identifier">chomp</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">bot_text</span> = <span class="ruby-identifier">$bot</span>.<span class="ruby-identifier">greeting</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Format the text and substitute into the HTML template</span>
+  <span class="ruby-identifier">bot_text</span> = <span class="ruby-node">%Q{&lt;p&gt;&lt;b&gt;I say:&lt;/b&gt; #{bot_text}&lt;/p&gt;}</span>
+  <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">@@html</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/\%RESPONSE\%/</span>, <span class="ruby-identifier">bot_text</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
