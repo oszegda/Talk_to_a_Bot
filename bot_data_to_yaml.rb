@@ -22,7 +22,7 @@ bot_data = {
       'Tell me something else.',
       "I'm tired of this. Change the subject."
     ],
-    :greeting => ["Hi. I'm [name]. What to chat?",
+    :greeting => ["Hi. I'm [name]. Whant to chat?",
                   "What's on your mind today?",
                   'Hi. What would you like to talk about?'
     ],
